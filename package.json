@@ -1,0 +1,33 @@
+{
+  "name": "pss-dashboard",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "rescript",
+    "clean": "rescript clean -with-deps",
+    "start": "node ./node_modules/webpack/bin/webpack.js serve --port 8085",
+    "re:start": "rescript build -w"
+  },
+  "keywords": [
+    "rescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "rescript": "^9.1.4",
+    "webpack-dev-server": "^3.11.3"
+  },
+  "dependencies": {
+    "@rescript/react": "^0.10.3",
+    "serve": "^13.0.2",
+    "watch": "^1.0.2",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "description": "This repo contains frontend code written in rescript.\r To run the repo:\r - Run `npm i` or `yarn` to install dependencies\r - Open 2 terminals:\r   - On one terminal, run `npm run re:start` or `yarn re:start`\r   - On the other terminal, run `npm run start` or `yarn start`\r - Open http://localhost:8085",
+  "main": "webpack.config.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  }
+}
