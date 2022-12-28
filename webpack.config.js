@@ -1,14 +1,11 @@
-// require("./templateVariables");
 const path = require('path');
-// const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// import MiniCssExtractPlugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: "development",
     entry: {
-        app: "./src/main/index.bs.js"
+        app: "./src/index.bs.js"
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),

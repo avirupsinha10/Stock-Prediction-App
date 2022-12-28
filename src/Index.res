@@ -1,4 +1,4 @@
-%%raw(`import "/dist/tailwind.css"`)
+%%raw(`import "../dist/tailwind.css"`)
 
 switch ReactDOM.querySelector("#app") {
 | Some(root) =>

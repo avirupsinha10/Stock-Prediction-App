@@ -11,10 +11,10 @@ type model = [
 
 open JsUtil
 let setItem: (model, string) => unit = (a, b) =>
-  LocalStore.localStorage->LocalStore.setItem("enigma_" ++ (a :> string), b)
+  LocalStore.localStorage->LocalStore.setItem("PSS_" ++ (a :> string), b)
 let getItem = a =>
   LocalStore.localStorage
-  ->LocalStore.getItem("enigma_" ++ a->External.treatAsString)
+  ->LocalStore.getItem("PSS_" ++ a->External.treatAsString)
   ->Js.Null_undefined.toOption
 
 let storeUserDetails = (~userDetails: Types.user) =>

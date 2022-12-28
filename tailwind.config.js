@@ -1,10 +1,10 @@
-/* @type {import('tailwindcss').Config} */
+// /**  @type { import('tailwindcss').Config } */
 
 const colors = require("tailwindcss/colors");
 
 module.exports = {
   important: true,
-  content: ["./src/*/.js", "./src/*/.tsx"],
+  content: ["./src/**/*.js", "./src/**/*.tsx"],
   presets: [],
   darkMode: "class", // or 'media' or 'class'
   theme: {
