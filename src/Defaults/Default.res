@@ -5,3 +5,5 @@ let user: Types.user = {
   email: "",
   context: "",
 }
+
+let emptyString = ""

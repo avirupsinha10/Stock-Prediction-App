@@ -24,6 +24,18 @@ let getString = (dict, key, default) =>
 let getInt = (dict, key, default) =>
   getOptionFloat(dict, key)->Belt.Option.mapWithDefault(default, Belt.Float.toInt)
 
+let getBool = (dict, key, default) =>
+  dict
+  ->Js.Dict.get(key)
+  ->Belt.Option.flatMap(Js.Json.decodeBoolean)
+  ->Belt.Option.getWithDefault(default)
+
+let getStringFromJson = (json: Js.Json.t, key: string) =>
+  json
+  ->Js.Json.decodeObject
+  ->Belt.Option.flatMap(getOptionString(_, key))
+  ->Belt.Option.getWithDefault(Default.emptyString)
+
 let parseUserData = (jsonString: string) =>
   jsonString
   ->stringToOptionalDict
@@ -34,3 +46,10 @@ let parseUserData = (jsonString: string) =>
     email: dict->getString("email", ""),
     context: dict->getString("context", ""),
   })
+
+let parseErrorResponse = (jsonString, default) =>
+  jsonString
+  ->stringToOptionalDict
+  ->Belt.Option.flatMap(getOptionString(_, "responseMessage"))
+  ->Belt.Option.getWithDefault(default)
+  ->Belt.Result.Error

@@ -5,7 +5,8 @@
     "build": "rescript",
     "clean": "rescript clean -with-deps",
     "start": "node ./node_modules/webpack/bin/webpack.js serve --port 8085",
-    "re:start": "rescript build -w"
+    "re:start": "rescript build -w",
+    "re:build": "rescript build"
   },
   "keywords": [
     "rescript"
