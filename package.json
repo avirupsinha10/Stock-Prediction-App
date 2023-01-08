@@ -20,6 +20,9 @@
     "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.8.4",
     "@reduxjs/toolkit": "^1.8.2",
     "@rescript/react": "^0.10.3",
     "@ryyppy/rescript-promise": "^2.1.0",

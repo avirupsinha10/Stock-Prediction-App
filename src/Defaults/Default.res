@@ -7,3 +7,15 @@ let user: Types.user = {
 }
 
 let emptyString = ""
+
+let popupContext: UiTypes.popupContext = {
+  className: "",
+  id: "",
+  titleText: "",
+  initialJson: Js.Json.null,
+  inputFields: [],
+  outputFields: [],
+  showResetButton: false,
+  onSubmit: {_ => ()},
+  showCloseButton: false,
+}

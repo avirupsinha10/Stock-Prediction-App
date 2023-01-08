@@ -5,7 +5,7 @@ type merchantDetails = {
   activeGunMans: array<string>,
   activeBouncers: array<string>,
 }
-type appContext = MerchantView(string) | PSSView(array<merchantDetails>)
+type appContext = MerchantView(string) | PSSView(array<merchantDetails>) | EmployeeView(string)
 
 type environment = [#prod | #sandbox | #integ]
 
@@ -20,4 +20,6 @@ type user = {
 type appState = {
   mutable user: user,
   mutable appContext: appContext,
+  mutable isPopupOpen: bool,
+  mutable isLightTheme: bool,
 }
