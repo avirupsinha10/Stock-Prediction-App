@@ -1,3 +1,96 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Toast Loader */
+.circular-loader {
+  height: 55px;
+  background-color: rgb(236, 233, 233);
+}
+
+.circular-loader div {
+  border: 5px solid #040a22;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  border-top-width: 0px;
+  border-left-width: 0px;
+  justify-content: center;
+  animation-name: spin;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  background-color: rgb(236, 233, 233);
+  position: absolute;
+}
+
+.circle1 {
+  width: 50px;
+  height: 50px;
+}
+
+.circle2 {
+  width: 40px;
+  height: 40px;
+  transform: rotate(90deg);
+}
+
+.circle3 {
+  width: 30px;
+  height: 30px;
+  transform: rotate(90deg);
+}
+
+.circle4 {
+  width: 20px;
+  height: 20px;
+  transform: rotate(90deg);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+.toast-body {
+  padding: 21px 0px 21px 60px;
+  font-size: 12px;
+  background-color: rgb(236, 233, 233);
+  display: inline-block;
+  border-radius: 30px;
+  text-align: center;
+  width: 0px;
+  max-height: 55px;
+  max-width: max-content;
+  display: inline-block;
+  overflow: hidden;
+  animation: slideOut 100ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideOut {
+  to {
+    padding-right: 20px;
+    width: 100%;
+  }
+}
+
+.floating-toast-modal {
+  position: fixed;
+  background: transparent;
+  top: 0;
+  z-index: 1999;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.floating-toast-modal .toast-container {
+  z-index: 999;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  margin: 20px 10px;
+  display: flex;
+  overflow: hidden;
+}

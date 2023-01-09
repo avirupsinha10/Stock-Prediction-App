@@ -1,3 +1,5 @@
+open Promise
+
 // let changeStepStatus: (
 //   ~payload: Types.changeStepStatusRequest,
 //   ~token: string,
@@ -26,18 +28,43 @@
 //   )
 // }
 
-// let resetContent: (
-//   ~payload: Types.resetContentRequest,
-//   ~token: string,
-// ) => t<Types.resetContentResponse> = (~payload, ~token) => {
-//   ApiUtils.getApiPromise(
-//     ApiEndpoints.resetContentURL,
-//     ~token,
-//     ~body=[("merchant_id", payload.merchantId->Js.Json.string)],
-//     ~handleSuccessResponse=Parser.parseFlow(_, ~isTemplateFlow=false),
-//     ~handleErrorResponse=ApiUtils.defaultErrorHandler,
-//   )
-// }
+let loginUser: (~payload: Js.Json.t) => t<Types.userResponse> = (~payload) => {
+  let body =
+    payload
+    ->Js.Json.decodeObject
+    ->Belt.Option.mapWithDefault([], dict => {
+      [
+        ("username", dict->Parser.getString("username", "")->Js.Json.string),
+        ("password", dict->Parser.getString("password", "")->Js.Json.string),
+      ]
+    })
+  ApiUtils.getApiPromise(
+    ApiEndpoints.loginUserURL,
+    ~body,
+    ~handleSuccessResponse=resp => Parser.parseUserData(resp),
+    ~handleErrorResponse=ApiUtils.defaultErrorHandler,
+  )
+}
+
+let registerUser: (~payload: Js.Json.t) => t<Types.userResponse> = (~payload) => {
+  let body =
+    payload
+    ->Js.Json.decodeObject
+    ->Belt.Option.mapWithDefault([], dict => {
+      [
+        ("type", dict->Parser.getString("type", "")->Js.Json.string),
+        ("username", dict->Parser.getString("username", "")->Js.Json.string),
+        ("email", dict->Parser.getString("email", "")->Js.Json.string),
+        ("password", dict->Parser.getString("password", "")->Js.Json.string),
+      ]
+    })
+  ApiUtils.getApiPromise(
+    ApiEndpoints.registerUserURL,
+    ~body,
+    ~handleSuccessResponse=resp => Parser.parseUserData(resp),
+    ~handleErrorResponse=ApiUtils.defaultErrorHandler,
+  )
+}
 
 // let fetchEmailList: (
 //   ~payload: Types.fetchEmailListRequest,
@@ -80,4 +107,3 @@
 //   )
 //   ->catch(e => Belt.Result.Error(e->JsUtil.External.treatAsAny)->resolve)
 // }
-

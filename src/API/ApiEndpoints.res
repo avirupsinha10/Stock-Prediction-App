@@ -1,5 +1,7 @@
-let pssBaseURL = "http://localhost:8088"
+let pssBaseURL = "http://localhost:5000"
 
 // api endpoints
 
-let validateUserURL = "/user/auth/init"
+let registerUserURL = pssBaseURL ++ "/users/signup"
+
+let loginUserURL = pssBaseURL ++ "/users/login"

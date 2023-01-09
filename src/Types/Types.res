@@ -7,19 +7,23 @@ type merchantDetails = {
 }
 type appContext = MerchantView(string) | PSSView(array<merchantDetails>) | EmployeeView(string)
 
-type environment = [#prod | #sandbox | #integ]
+type environment = [#prod | #integ]
+
+type userContext = [#INTERNAL | #MERCHANT | #EMPLOYEE]
 
 type user = {
   username: string,
-  token: string,
-  merchantId: string,
-  email: string,
-  context: string,
+  merchantId: option<string>,
+  email: option<string>,
+  context: userContext,
 }
+
+type userResponse = Belt.Result.t<user, string>
 
 type appState = {
   mutable user: user,
   mutable appContext: appContext,
-  mutable isPopupOpen: bool,
   mutable isLightTheme: bool,
+  mutable isToastOpen: bool,
+  mutable toastMessage: string,
 }

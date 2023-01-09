@@ -40,23 +40,29 @@ let caller = (apiPromise, ~onError, ~onOk, ~beforeResolve=() => (), ()) =>
   })
   ->ignore
 
-let useApiCall = (apiPromise, apiName) => {
-  let {token} = ReactRedux.useSelector(store => store.app.user)
-  (~payload, ~onStart=() => (), ~onSuccess, ~onFailure, ~beforeResolve=() => (), ()) => {
-    Js.log2(apiName, "API call, please wait !!!")
-    onStart()
-    caller(
-      apiPromise(~payload, ~token),
-      ~onError=error => {
-        Js.log3(apiName, "Error :", error)
-        onFailure(error)
-      },
-      ~onOk=ok => {
-        Js.log3(apiName, "Success :", ok)
-        onSuccess(ok)
-      },
-      ~beforeResolve,
-      (),
-    )
-  }
+let useApiCall = (
+  apiPromise,
+  apiName,
+  ~payload,
+  ~onStart=() => (),
+  ~onSuccess,
+  ~onFailure,
+  ~beforeResolve=() => (),
+  (),
+) => {
+  Js.log2(apiName, "API call, please wait !!!")
+  onStart()
+  caller(
+    apiPromise(~payload),
+    ~onError=error => {
+      Js.log3(apiName, "Error :", error)
+      onFailure(error)
+    },
+    ~onOk=ok => {
+      Js.log3(apiName, "Success :", ok)
+      onSuccess(ok)
+    },
+    ~beforeResolve,
+    (),
+  )
 }

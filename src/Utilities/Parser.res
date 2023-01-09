@@ -1,3 +1,4 @@
+external toUserContextData: string => Types.userContext = "%identity"
 let stringToOptionalDict = string => string->Js.Json.parseExn->Js.Json.decodeObject
 let stringToOptionalArray = string => string->Js.Json.parseExn->Js.Json.decodeArray
 let jsonToString = val => val->Js.Json.decodeString->Belt.Option.getWithDefault("")
@@ -41,10 +42,9 @@ let parseUserData = (jsonString: string) =>
   ->stringToOptionalDict
   ->Belt.Option.mapWithDefault(Default.user, (dict): Types.user => {
     username: dict->getString("username", ""),
-    token: dict->getString("token", ""),
-    merchantId: dict->getString("merchantId", ""),
-    email: dict->getString("email", ""),
-    context: dict->getString("context", ""),
+    merchantId: dict->getOptionString("merchantId"),
+    email: dict->getOptionString("email"),
+    context: dict->getString("context", "")->toUserContextData,
   })
 
 let parseErrorResponse = (jsonString, default) =>

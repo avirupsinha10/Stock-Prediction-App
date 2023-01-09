@@ -4,16 +4,18 @@ open! ReactRedux
 type reducers = {
   setUser: (appState, payloadAction<user>) => unit,
   setAppContext: (appState, payloadAction<appContext>) => unit,
-  showPopup: (appState, payloadAction<unit>) => unit,
-  hidePopup: (appState, payloadAction<unit>) => unit,
+  showToast: (appState, payloadAction<unit>) => unit,
+  hideToast: (appState, payloadAction<unit>) => unit,
+  setToastMessage: (appState, payloadAction<string>) => unit,
   switchTheme: (appState, payloadAction<unit>) => unit,
 }
 
 type appSliceActions = {
   setUser: action<user>,
   setAppContext: action<appContext>,
-  showPopup: (. unit) => actionType,
-  hidePopup: (. unit) => actionType,
+  showToast: (. unit) => actionType,
+  hideToast: (. unit) => actionType,
+  setToastMessage: action<string>,
   switchTheme: (. unit) => actionType,
 }
 
@@ -22,7 +24,8 @@ let createSliceArg: createSliceArg<appState, reducers> = {
   initialState: {
     user: Default.user,
     appContext: MerchantView("RUDRA Pvt Ltd"),
-    isPopupOpen: false,
+    isToastOpen: false,
+    toastMessage: "",
     isLightTheme: true,
   },
   reducers: {
@@ -33,11 +36,14 @@ let createSliceArg: createSliceArg<appState, reducers> = {
     setAppContext: (state, action: payloadAction<appContext>) => {
       state.appContext = action.payload
     },
-    showPopup: (state, _action: payloadAction<unit>) => {
-      state.isPopupOpen = true
+    showToast: (state, _action: payloadAction<unit>) => {
+      state.isToastOpen = true
     },
-    hidePopup: (state, _action: payloadAction<unit>) => {
-      state.isPopupOpen = false
+    hideToast: (state, _action: payloadAction<unit>) => {
+      state.isToastOpen = false
+    },
+    setToastMessage: (state, action: payloadAction<string>) => {
+      state.toastMessage = action.payload
     },
     switchTheme: (state, _action: payloadAction<unit>) => {
       state.isLightTheme = !state.isLightTheme
@@ -47,6 +53,6 @@ let createSliceArg: createSliceArg<appState, reducers> = {
 
 let appSlice = createSlice(createSliceArg)
 
-let {setUser, setAppContext, showPopup, hidePopup, switchTheme} = appSlice.actions
+let {setUser, setAppContext, switchTheme, showToast, hideToast, setToastMessage} = appSlice.actions
 
 let default = appSlice.reducer

@@ -1,4 +1,4 @@
 @react.component
 let make = (~employeeId: string) => {
-  <div />
+  employeeId->React.string
 }

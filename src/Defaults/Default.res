@@ -1,21 +1,18 @@
 let user: Types.user = {
   username: "",
-  token: "",
+  merchantId: None,
+  email: None,
+  context: #INTERNAL,
+}
+
+let userContextArray: array<Types.userContext> = [#INTERNAL, #EMPLOYEE, #MERCHANT]
+
+let merchantDetails: Types.merchantDetails = {
   merchantId: "",
-  email: "",
-  context: "",
+  merchantStatus: false,
+  activeGuards: [],
+  activeGunMans: [],
+  activeBouncers: [],
 }
 
 let emptyString = ""
-
-let popupContext: UiTypes.popupContext = {
-  className: "",
-  id: "",
-  titleText: "",
-  initialJson: Js.Json.null,
-  inputFields: [],
-  outputFields: [],
-  showResetButton: false,
-  onSubmit: {_ => ()},
-  showCloseButton: false,
-}
