@@ -13,9 +13,9 @@ type userContext = [#INTERNAL | #MERCHANT | #EMPLOYEE]
 
 type user = {
   username: string,
-  merchantId: option<string>,
-  email: option<string>,
-  context: userContext,
+  name: string,
+  email: string,
+  password: string,
 }
 
 type userResponse = Belt.Result.t<user, string>
@@ -26,4 +26,22 @@ type appState = {
   mutable isLightTheme: bool,
   mutable isToastOpen: bool,
   mutable toastMessage: string,
+}
+
+type predict = {message: string}
+
+type predictResponse = Belt.Result.t<predict, string>
+
+type stockData = {
+  name: string,
+  price: string,
+  volume: string,
+  timestamp: string,
+}
+
+type stockResponse = Belt.Result.t<stockData, string>
+
+type stockUI = {
+  stockName: string,
+  stockAmount: int,
 }

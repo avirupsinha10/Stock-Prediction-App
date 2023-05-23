@@ -41,7 +41,10 @@ let loginUser: (~payload: Js.Json.t) => t<Types.userResponse> = (~payload) => {
   ApiUtils.getApiPromise(
     ApiEndpoints.loginUserURL,
     ~body,
-    ~handleSuccessResponse=resp => Parser.parseUserData(resp),
+    ~handleSuccessResponse=resp => {
+      // Js.log(resp)
+      Parser.parseUserData(resp)
+    },
     ~handleErrorResponse=ApiUtils.defaultErrorHandler,
   )
 }
@@ -52,7 +55,7 @@ let registerUser: (~payload: Js.Json.t) => t<Types.userResponse> = (~payload) =>
     ->Js.Json.decodeObject
     ->Belt.Option.mapWithDefault([], dict => {
       [
-        ("type", dict->Parser.getString("type", "")->Js.Json.string),
+        ("name", dict->Parser.getString("name", "")->Js.Json.string),
         ("username", dict->Parser.getString("username", "")->Js.Json.string),
         ("email", dict->Parser.getString("email", "")->Js.Json.string),
         ("password", dict->Parser.getString("password", "")->Js.Json.string),
@@ -62,6 +65,36 @@ let registerUser: (~payload: Js.Json.t) => t<Types.userResponse> = (~payload) =>
     ApiEndpoints.registerUserURL,
     ~body,
     ~handleSuccessResponse=resp => Parser.parseUserData(resp),
+    ~handleErrorResponse=ApiUtils.defaultErrorHandler,
+  )
+}
+
+let predictStock: (~payload: Js.Json.t) => t<Types.predictResponse> = (~payload) => {
+  let body =
+    payload
+    ->Js.Json.decodeObject
+    ->Belt.Option.mapWithDefault([], dict => {
+      [("stock_name", dict->Parser.getString("stock_name", "")->Js.Json.string)]
+    })
+  ApiUtils.getApiPromise(
+    ApiEndpoints.predictStockURL,
+    ~body,
+    ~handleSuccessResponse=resp => Parser.parsePredictData(resp),
+    ~handleErrorResponse=ApiUtils.defaultErrorHandler,
+  )
+}
+
+let fetchStockData: (~payload: Js.Json.t) => t<Types.stockResponse> = (~payload) => {
+  let body =
+    payload
+    ->Js.Json.decodeObject
+    ->Belt.Option.mapWithDefault([], dict => {
+      [("company_name", dict->Parser.getString("company_name", "")->Js.Json.string)]
+    })
+  ApiUtils.getApiPromise(
+    ApiEndpoints.getStockDetailsURL,
+    ~body,
+    ~handleSuccessResponse=resp => Parser.parseStockData(resp),
     ~handleErrorResponse=ApiUtils.defaultErrorHandler,
   )
 }

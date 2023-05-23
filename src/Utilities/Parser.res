@@ -42,9 +42,16 @@ let parseUserData = (jsonString: string) =>
   ->stringToOptionalDict
   ->Belt.Option.mapWithDefault(Default.user, (dict): Types.user => {
     username: dict->getString("username", ""),
-    merchantId: dict->getOptionString("merchantId"),
-    email: dict->getOptionString("email"),
-    context: dict->getString("context", "")->toUserContextData,
+    name: dict->getString("name", ""),
+    email: dict->getString("email", ""),
+    password: dict->getString("password", ""),
+  })
+
+let parsePredictData = (jsonString: string) =>
+  jsonString
+  ->stringToOptionalDict
+  ->Belt.Option.mapWithDefault(Default.predictResponse, (dict): Types.predict => {
+    message: dict->getString("message", ""),
   })
 
 let parseErrorResponse = (jsonString, default) =>
@@ -53,3 +60,13 @@ let parseErrorResponse = (jsonString, default) =>
   ->Belt.Option.flatMap(getOptionString(_, "responseMessage"))
   ->Belt.Option.getWithDefault(default)
   ->Belt.Result.Error
+
+let parseStockData = (jsonString: string) =>
+  jsonString
+  ->stringToOptionalDict
+  ->Belt.Option.mapWithDefault(Default.stockData, (dict): Types.stockData => {
+    name: dict->getString("symbol", ""),
+    price: dict->getString("price", ""),
+    volume: dict->getString("volume", ""),
+    timestamp: dict->getString("timestamp", ""),
+  })

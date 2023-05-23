@@ -1,8 +1,8 @@
 let user: Types.user = {
   username: "",
-  merchantId: None,
-  email: None,
-  context: #INTERNAL,
+  name: "",
+  email: "",
+  password: "",
 }
 
 let userContextArray: array<Types.userContext> = [#INTERNAL, #EMPLOYEE, #MERCHANT]
@@ -14,5 +14,20 @@ let merchantDetails: Types.merchantDetails = {
   activeGunMans: [],
   activeBouncers: [],
 }
+let predictResponse: Types.predict = {
+  message: "",
+}
 
 let emptyString = ""
+
+let stockData: Types.stockData = {
+  name: "",
+  price: "",
+  volume: "",
+  timestamp: "",
+}
+
+let stockUI: Types.stockUI = {
+  stockName: "",
+  stockAmount: 0,
+}

@@ -8,3 +8,13 @@ let preventSubmitOnEnter = (ev: ReactEvent.Keyboard.t) => {
     ev->ReactEvent.Keyboard.preventDefault
   }
 }
+
+@val @scope(("navigator", "clipboard"))
+external writeToClipboard: string => Promise.t<'a> = "writeText"
+
+let stringToFloat = element => {
+  switch Belt.Float.fromString(element) {
+  | Some(a) => a
+  | _ => 0.0
+  }
+}
